@@ -20,33 +20,32 @@ create table tPedidos(
 create table tClases(
     Id integer primary key auto_increment,
     Nombre varchar(40) not null,
-    Horarios integer not null
+    Horarios varchar(50)
 );
 
 
 create table Productos(
-    ProductosId int NOT NULL auto-increment,
+    ProductosId int NOT NULL auto_increment,
     Nombre Varchar(40) NOT NULL,
     Color Varchar(10),
     Precio int NOT NULL,
     Descripcion varchar(250) NOT NULL,
-    Imagen varchar(1000),
+    Imagen blob,
     CategoriaID int NOT NULL
 );
 
 create table Categoria(
-    CategoriaId int NOT NULL auto-increment,
+    CategoriaId int NOT NULL auto_increment,
     Nombre varchar(20) NOT NULL,
-    Imagen varchar(1000)
+    Imagen blob
 );
 
 
-INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES 
-(54701531Q, 'John Smith', 'johnsmith@example.com', 30, '123 Main St', 5555551),
-(54701532Q, 'Jane Doe', 'janedoe@example.com', 30, '456 Park Ave',5555552),
-(54701533Q, 'Bob Johnson', 'bobjohnson@example.com', 30, '789 Elm St', 5555553),
-(54701534Q, 'Amy Miller', 'amymiller@example.com', 28, '321 Oak St', 5555554),
-(54701535Q, 'Mark Wilson', 'markwilson@example.com', 28,'654 Pine St', 5555555);
+INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES (54701531Q, 'John Smith', 'johnsmith@example.com', 30, '123 Main St', 5555551);
+INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES (54701532Q, 'Jane Doe', 'janedoe@example.com', 30, '456 Park Ave',5555552);
+INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES (54701533Q, 'Bob Johnson', 'bobjohnson@example.com', 30, '789 Elm St', 5555553);
+INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES (54701534Q, 'Amy Miller', 'amymiller@example.com', 28, '321 Oak St', 5555554);
+INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES (54701535Q, 'Mark Wilson', 'markwilson@example.com', 28,'654 Pine St', 5555555);
 
  
 insert into tPedidos(Fecha, Cantidad) VALUES ("2022-11-30", "4");
@@ -84,3 +83,4 @@ insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'Ca
 insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'CategoriaID') values ('BioTechUSA Shaker 600 ml','Blanco','12,66','Shaker de BioTechUSA para la mezcla perfecta de todos tus complementos nutricionales.Formato:Bote de 700 ml','https://contents.mediadecathlon.com/m10131669/k$70e04f94fd8527bbffd2a2dec7048e59/sq/biotechusa-shaker-600-ml-blanco.jpg?format=auto&f=800x0','2')
 insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'CategoriaID') values ('Agitador de acero inoxidable de 900 ml-SmartShake','Negro','18,90','Un agitador silencioso de alta calidad, diseño resistente, muy duradero y 100% impermeable, pesa sólo 170 gramos, gran abertura para facilitar la limpieza (sólo lavar a mano).','https://contents.mediadecathlon.com/m10084259/k$1b0a0c255d09f8dd8732773d98c0df96/sq/agitador-de-acero-inoxidable-de-900-ml-smartshake.jpg?format=auto&f=800x0','2')
 insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'CategoriaID') values ('Classic Shaker 500 ml','Azul','8,99','Tapón con doble cierre de seguridad «clic-clac» audible y garantía de cero fugas. Asa de transporte para que puedas llevarte el shaker en tus desplazamientos deportivos','https://contents.mediadecathlon.com/p2402366/k$529b12e6c813b2562902a8ef4d8fa350/sq/classic-shaker-500-ml-azul.jpg?format=auto&f=800x0','2')
+
