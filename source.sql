@@ -64,10 +64,6 @@ insert into tClases(Nombre, Horarios) VALUES ("Zumba", "21:00");
 
 
 
-
-
-alter table Productos add constraint 'fk_CategoriaId' FOREIGN KEY (CategoriaID) REFERENCES Categoria(CategoriaId);
-
 insert into Categorias('Nombre', 'Imagen') values ('Ropa','https://www.todo-yoga.net/wp-content/uploads/2018/07/camiseta-blanca-unisex-algoddon-416x416.jpg')
 insert into Categorias('Nombre', 'Imagen') values ('Shaker','https://www.gastrolabweb.com/u/fotografias/fotosnoticias/2021/4/7/11334.jpg')
 insert into Categorias('Nombre', 'Imagen') values ('Suplementos','https://chemaarguedas.com/cms/wp-content/uploads/2019/11/Captura-de-pantalla-2020-05-20-a-las-12.29.55.jpg')
@@ -84,3 +80,4 @@ insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'Ca
 insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'CategoriaID') values ('Agitador de acero inoxidable de 900 ml-SmartShake','Negro','18,90','Un agitador silencioso de alta calidad, diseño resistente, muy duradero y 100% impermeable, pesa sólo 170 gramos, gran abertura para facilitar la limpieza (sólo lavar a mano).','https://contents.mediadecathlon.com/m10084259/k$1b0a0c255d09f8dd8732773d98c0df96/sq/agitador-de-acero-inoxidable-de-900-ml-smartshake.jpg?format=auto&f=800x0','2')
 insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'CategoriaID') values ('Classic Shaker 500 ml','Azul','8,99','Tapón con doble cierre de seguridad «clic-clac» audible y garantía de cero fugas. Asa de transporte para que puedas llevarte el shaker en tus desplazamientos deportivos','https://contents.mediadecathlon.com/p2402366/k$529b12e6c813b2562902a8ef4d8fa350/sq/classic-shaker-500-ml-azul.jpg?format=auto&f=800x0','2')
 
+alter table Productos add constraint 'fk_CategoriaId' FOREIGN KEY (CategoriaID) REFERENCES Categoria(CategoriaId);
