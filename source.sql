@@ -3,7 +3,8 @@ CREATE DATABASE RBD_GYM;
 USE RBD_GYM;
 
 CREATE TABLE tPersona (
-DNI varchar(20) PRIMARY KEY,
+id integer primary key auto_increment,
+DNI varchar(20),
 Nombre VARCHAR(50),
 Correo VARCHAR(200),
 Pago Integer,
@@ -25,28 +26,29 @@ create table tClases(
 );
 
 
+create table Categoria(
+    CategoriaId int NOT NULL auto_increment,
+    Nombre varchar(20) NOT NULL,
+    Imagen varchar(2000)
+);
+
 create table Productos(
     ProductosId int NOT NULL auto_increment,
     Nombre Varchar(40) NOT NULL,
     Color Varchar(10),
     Precio int NOT NULL,
     Descripcion varchar(250) NOT NULL,
-    Imagen blob,
-    CategoriaID int NOT NULL
-);
-
-create table Categoria(
-    CategoriaId int NOT NULL auto_increment,
-    Nombre varchar(20) NOT NULL,
-    Imagen blob
-);
+    Imagen varchar(2000),
+    CategoriaID int NOT NULL,
+    FOREIGN KEY (CategoriaID) REFERENCES Categoria(CategoriaId)
+)
 
 
-INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701531Q", 'John Smith', 'johnsmith@example.com', 30, '123 Main St', 5555551);
-INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701532Q", 'Jane Doe', 'janedoe@example.com', 30, '456 Park Ave',5555552);
-INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701533Q", 'Bob Johnson', 'bobjohnson@example.com', 30, '789 Elm St', 5555553);
-INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701534Q", 'Amy Miller', 'amymiller@example.com', 28, '321 Oak St', 5555554);
-INSERT INTO tPersona (DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701535Q", 'Mark Wilson', 'markwilson@example.com', 28,'654 Pine St', 5555555);
+INSERT INTO tPersona (id,DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701531Q", 'John Smith', 'johnsmith@example.com', 30, '123 Main St', 5555551);
+INSERT INTO tPersona (id,DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701532Q", 'Jane Doe', 'janedoe@example.com', 30, '456 Park Ave',5555552);
+INSERT INTO tPersona (id,DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701533Q", 'Bob Johnson', 'bobjohnson@example.com', 30, '789 Elm St', 5555553);
+INSERT INTO tPersona (id,DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701534Q", 'Amy Miller', 'amymiller@example.com', 28, '321 Oak St', 5555554);
+INSERT INTO tPersona (id,DNI, Nombre, Correo, Pago, Dirección, Nºteléfono) VALUES ("54701535Q", 'Mark Wilson', 'markwilson@example.com', 28,'654 Pine St', 5555555);
 
  
 insert into tPedidos(Fecha, Cantidad) VALUES ("2022-11-30", "4");
@@ -81,4 +83,3 @@ insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'Ca
 insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'CategoriaID') values ('Agitador de acero inoxidable de 900 ml-SmartShake','Negro','18,90','Un agitador silencioso de alta calidad, diseño resistente, muy duradero y 100% impermeable, pesa sólo 170 gramos, gran abertura para facilitar la limpieza (sólo lavar a mano).','https://contents.mediadecathlon.com/m10084259/k$1b0a0c255d09f8dd8732773d98c0df96/sq/agitador-de-acero-inoxidable-de-900-ml-smartshake.jpg?format=auto&f=800x0','2');
 insert into Productos ('Nombre', 'Color', 'Precio', 'Descripcion', 'Imagen', 'CategoriaID') values ('Classic Shaker 500 ml','Azul','8,99','Tapón con doble cierre de seguridad «clic-clac» audible y garantía de cero fugas. Asa de transporte para que puedas llevarte el shaker en tus desplazamientos deportivos','https://contents.mediadecathlon.com/p2402366/k$529b12e6c813b2562902a8ef4d8fa350/sq/classic-shaker-500-ml-azul.jpg?format=auto&f=800x0','2');
 
-alter table Productos add constraint 'fk_CategoriaId' FOREIGN KEY (CategoriaID) REFERENCES Categoria(CategoriaId);
