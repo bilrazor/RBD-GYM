@@ -1,0 +1,138 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/BHANOVERT/RBD-GYM/1.0.0
+info:
+  version: RBD-GYM
+  title: home-iot-api
+  description: The API for the RBD-GYM project
+paths:
+  /profile:
+    get:
+      tags:
+        - profile
+      description: Recuperar información de perfil del usuario autenticado
+      operationId: getProfile
+      parameters:
+        - in: header
+          name: SessionToken
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200': 
+          description: OK
+          content: 
+            application/json: 
+              schema: 
+                properties: 
+                  Nombre: 
+                    type: string
+                  Correo: 
+                    type: string
+                  Contraseña: 
+                    type: string
+                  pago: 
+                    type: number
+                  dirección: 
+                    type: string
+                  Nºteléfono: 
+                    type: integer
+                    
+                         
+        '404':
+          description: Unauthorized - Invalid session token"
+
+               
+  /sessions:
+    post:
+      tags:
+        - sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+              type: object
+              properties:
+                Nombre:
+                  type: string
+                  nullable: true
+                Correo:
+                  type: string
+                  nullable: true
+                Contraseña:
+                  type: string
+                  required: true
+              oneOf:
+                - required: [Nombre]
+                - required: [Correo]
+      
+          
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionToken:
+                    type: string
+        '400':
+          description: Bad Request - Faltan parámetros o incorrectos
+        '401':
+          description: Unauthorized - Contraseña incorrecta           
+ 
+            
+  /users:
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Persona'
+              type: object
+              required:
+                - Nombre
+                - Correo
+                - Contraseña
+              properties:
+                Nombre:
+                  type: string
+                Correo:
+                  type: string
+                Contraseña:
+                  type: string
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad Request - Missing or incorrect parameters
+        409:
+          description: Conflict - Email or username already exists                   
+   
+components:
+  schemas:
+    Persona:
+      type: object
+      properties:
+        id:
+          type: integer
+        DNI:
+          type: string
+        Nombre:
+          type: string
+        Correo:
+          type: string
+        Pago:
+          type: integer
+        Direción:
+          type: string
+        Nºteléfono:
+          type: integer
+          format: int32
