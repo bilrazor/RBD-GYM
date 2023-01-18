@@ -1,0 +1,391 @@
+---
+openapi: 3.0.0
+info:
+  title: RBD-GYM
+  description: API gimnasio RBD-GYM
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/DCOIRAP/RBD/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /categories:
+    get:
+      tags:
+      - categories
+      summary: Lista categorias
+      description: Este método lista categorias
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categories'
+  /categories/{id}/products[search=boxeo&sortBy=[name|price]]:
+    get:
+      tags:
+      - categories
+      summary: buscar dentro de una categoria
+      description: lista productos de una categoria mediante un search y un sort by
+      parameters:
+      - name: search
+        in: query
+        description: busqueda
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: sortPrecio
+        in: query
+        description: ordenacion
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: +precio -precio
+      - name: sortName
+        in: query
+        description: ordenacion
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: A-Z, Z-A
+      - name: ProductosBusqueda
+        in: query
+        description: busqueda de productos, ordenados a partir del nombre o del precio
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id del producto
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categories'
+  /products/{id}:
+    get:
+      tags:
+      - id
+      - products
+      summary: detalles de un producto
+      description: detalles de un producto
+      parameters:
+      - name: id
+        in: path
+        description: id del producto
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+  /cart:
+    get:
+      tags:
+      - Carrito
+      - Productos
+      parameters:
+      - name: Token
+        in: header
+        description: Token del usuario
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+        "401":
+          description: 'Unauthorized: Token de sesión no válido'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Carrito
+      - Productos
+      parameters:
+      - name: sessionToken
+        in: header
+        description: Token del usuario
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/productos'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+        "400":
+          description: Bad Request-El 'productId' no viajó en el cuerpo de la petición o el ID era inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: 'Unauthorized: Token de sesión no válido'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cart/{ProductosId}:
+    delete:
+      tags:
+      - productos
+      parameters:
+      - name: ProductosId
+        in: path
+        description: Token del usuario
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: sessionToken
+        in: header
+        description: Token del usuario
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request - El {productId} no es válido (no existe en el carrito del usuario)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: 'Unauthorized: Token de sesión no válido'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+      - productos
+      parameters:
+      - name: ProductosId
+        in: path
+        description: Token del usuario
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: sessionToken
+        in: header
+        description: Token del usuario
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cart_ProductosId_body'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productos'
+        "400":
+          description: Bad Request - La petición no tiene 'op', 'path' ó 'value' en el cuerpo; o bien el {productId} no es válido; o bien el nuevo 'value' es 0 ó negativo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: 'Unauthorized: Token de sesión no válido'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /checkout:
+    post:
+      parameters:
+      - name: sessionToken
+        in: header
+        description: Token del usuario
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: 'Unauthorized: Token de sesión no válido'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: Conflict - El usuario no tiene artículos en el carro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /classes:
+    get:
+      tags:
+      - classes
+      description: Lista las clases que existen en el gimnasio
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clases'
+components:
+  schemas:
+    productos:
+      required:
+      - Nombre
+      - ProductosId
+      type: object
+      properties:
+        ProductosId:
+          type: string
+          format: uuid
+          readOnly: true
+        Nombre:
+          type: string
+        Precio:
+          type: number
+        Color:
+          type: string
+        imagen:
+          type: string
+        descripcion:
+          type: string
+        CategoriaId:
+          type: string
+          format: uuid
+    clases:
+      required:
+      - Id
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+          readOnly: true
+        Nombre:
+          type: string
+        Horarios:
+          type: string
+    categories:
+      required:
+      - CategoriaId
+      type: object
+      properties:
+        CategoriaId:
+          type: string
+          format: uuid
+          readOnly: true
+        Nombre:
+          type: string
+        Imagen:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Código de error
+        status:
+          type: integer
+          description: httpstatus
+          format: int32
+        type:
+          type: string
+          description: Tipo de error
+        message:
+          type: string
+          description: Mensaje de error
+    cart_ProductosId_body:
+      type: object
+      properties:
+        op:
+          type: string
+        path:
+          type: string
+        value:
+          type: integer
+  parameters:
+    sortParamPrecio:
+      name: sortPrecio
+      in: query
+      description: ordenacion
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+      example: +precio -precio
+    sortParamName:
+      name: sortName
+      in: query
+      description: ordenacion
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+      example: A-Z, Z-A
+    searchParam:
+      name: search
+      in: query
+      description: busqueda
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
