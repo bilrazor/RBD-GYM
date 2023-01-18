@@ -306,7 +306,7 @@ components:
         descripcion:
           type: string
         CategoriaId:
-          type: string
+          type: integer
           format: uuid
     clases:
       required:
