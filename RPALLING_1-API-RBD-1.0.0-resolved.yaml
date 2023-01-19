@@ -18,7 +18,7 @@ paths:
       - name: SessionToken
         in: header
         description: Ese es el token necesario
-        required: false
+        required : true
         style: simple
         explode: false
         schema:
@@ -58,7 +58,7 @@ paths:
       - name: SessionToken
         in: header
         description: Ese es el token necesario
-        required: false
+        required : true
         style: simple
         explode: false
         schema:
@@ -98,7 +98,7 @@ paths:
       - name: SessionToken
         in: header
         description: Ese es el token necesario
-        required: false
+        required : true
         style: simple
         explode: false
         schema:
@@ -123,6 +123,7 @@ components:
     Persona:
       required:
       - DNI
+      - IdPersona
       type: object
       properties:
         IdPersona:
