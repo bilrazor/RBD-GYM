@@ -292,8 +292,8 @@ components:
       type: object
       properties:
         ProductosId:
-          type: string
-          format: uuid
+          type: integer
+          format: int32
           readOnly: true
         Nombre:
           type: string
@@ -307,15 +307,15 @@ components:
           type: string
         CategoriaId:
           type: integer
-          format: uuid
+          format: int32
     clases:
       required:
       - Id
       type: object
       properties:
         Id:
-          type: string
-          format: uuid
+          type: integer
+          format: int32
           readOnly: true
         Nombre:
           type: string
@@ -327,8 +327,8 @@ components:
       type: object
       properties:
         CategoriaId:
-          type: string
-          format: uuid
+          type: integer
+          format: int32
           readOnly: true
         Nombre:
           type: string
