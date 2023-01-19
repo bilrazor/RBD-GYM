@@ -130,7 +130,8 @@ components:
         Correo:
           type: string
         Pago:
-          type: integer
+          type: number
+          format: float
         Direción:
           type: string
         Nºteléfono:
