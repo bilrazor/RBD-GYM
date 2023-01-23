@@ -146,6 +146,7 @@ paths:
     post:
       tags:
       - sessions
+      description: Login de usuario
       requestBody:
         content:
           application/json:
@@ -165,7 +166,7 @@ paths:
           description: Unauthorized - Contraseña incorrecta
   /users:
     post:
-      summary: Create a new user
+      description: Registro de usuario:
       requestBody:
         content:
           application/json:
