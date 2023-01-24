@@ -1,32 +1,31 @@
----
 openapi: 3.0.0
-info:
-  title: RBD-GYM
-  description: API gimnasio RBD-GYM
-  version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/DCOIRAP/RBD/1.0.0
-  description: SwaggerHub API Auto Mocking
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/DCOIRAP/RBD/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/BHANOVERT/RBD-GYM/1.0.0
+info:
+  version: 1.0.0
+  title: home-iot-api
+  description: The API for the RBD-GYM project
 paths:
+  
   /categories:
     get:
       tags:
       - categories
-      summary: Lista categorias
-      description: Este método lista categorias
+      summary: "Lista las categorias"
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/categories'
+          
   /categories/{id}/products[search=boxeo&sortBy=[name|price]]:
     get:
       tags:
       - categories
-      summary: buscar dentro de una categoria
-      description: lista productos de una categoria mediante un search y un sort by
+      summary: "buscar dentro de una categoria mediante unos filtros"
       parameters:
       - name: search
         in: query
@@ -73,17 +72,18 @@ paths:
       responses:
         "200":
           description: OK
+        "400":
+          description: "Bad Request - Los parametros son erroneos"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/categories'
+                $ref: "#/components/schemas/Error"
+          
   /products/{id}:
     get:
       tags:
-      - id
-      - products
-      summary: detalles de un producto
-      description: detalles de un producto
+      - productos
+      summary: "Lista los detalles de un producto"
       parameters:
       - name: id
         in: path
@@ -100,11 +100,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/productos'
+        "400":
+          description: "Bad Request - El producto no existe"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              
   /cart:
     get:
       tags:
       - Carrito
-      - Productos
+      summary: "Lista los elementos del carrito"
       parameters:
       - name: Token
         in: header
@@ -130,7 +137,7 @@ paths:
     post:
       tags:
       - Carrito
-      - Productos
+      summary: "Añade un producto al carrito"
       parameters:
       - name: sessionToken
         in: header
@@ -148,10 +155,6 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/productos'
         "400":
           description: Bad Request-El 'productId' no viajó en el cuerpo de la petición o el ID era inválido
           content:
@@ -167,7 +170,8 @@ paths:
   /cart/{ProductosId}:
     delete:
       tags:
-      - productos
+      - Carrito
+      summary: "Elimina un producto del carrito"
       parameters:
       - name: ProductosId
         in: path
@@ -202,7 +206,8 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-      - productos
+      - Carrito
+      summary: "Cambia la cantidad de un producto en el carrito"
       parameters:
       - name: ProductosId
         in: path
@@ -229,10 +234,6 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/productos'
         "400":
           description: Bad Request - La petición no tiene 'op', 'path' ó 'value' en el cuerpo; o bien el {productId} no es válido; o bien el nuevo 'value' es 0 ó negativo
           content:
@@ -247,6 +248,9 @@ paths:
                 $ref: '#/components/schemas/Error'
   /checkout:
     post:
+      tags: 
+        - Carrito
+      summary: "Confirma una compra ficticia"
       parameters:
       - name: sessionToken
         in: header
@@ -271,11 +275,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /classes:
+                
+  /clases:
     get:
       tags:
-      - classes
-      description: Lista las clases que existen en el gimnasio
+        - Clases
+      summary: "Lista las clases"
       responses:
         "200":
           description: OK
@@ -283,6 +288,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/clases'
+        
 components:
   schemas:
     productos:
@@ -321,19 +327,7 @@ components:
           type: string
         Horarios:
           type: string
-    categories:
-      required:
-      - CategoriaId
-      type: object
-      properties:
-        CategoriaId:
-          type: integer
-          format: int32
-          readOnly: true
-        Nombre:
-          type: string
-        Imagen:
-          type: string
+    
     Error:
       type: object
       properties:
@@ -350,6 +344,7 @@ components:
         message:
           type: string
           description: Mensaje de error
+          
     cart_ProductosId_body:
       type: object
       properties:
