@@ -2,6 +2,17 @@ CREATE DATABASE RBD_GYM;
 
 USE RBD_GYM;
 
+CREATE TABLE tCarrito (
+    ProductosId integer  NOT NULL  primary key auto_increment,
+    Nombre Varchar(400) NOT NULL,
+    Color Varchar(100),
+    Precio varchar(100),
+    Descripcion varchar(250) NOT NULL,
+    Imagen varchar(2000),
+    CategoriaID integer NOT NULL,
+    FOREIGN KEY (CategoriaID) REFERENCES tCategorias(CategoriaId)
+);
+
 CREATE TABLE tPersona (
 	IdPersona integer not null primary key auto_increment,
 	dni varchar(50),
