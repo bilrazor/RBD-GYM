@@ -10,8 +10,7 @@ CREATE TABLE tCarrito (
     Precio varchar(100),
     Descripcion varchar(250) NOT NULL,
     Imagen varchar(2000),
-    CategoriaID integer NOT NULL,
-    FOREIGN KEY (CategoriaID) REFERENCES tCategorias(CategoriaId)
+    Cantidad varchar(200),
 );
 
 CREATE TABLE tPersona (
