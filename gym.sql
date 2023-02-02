@@ -10,7 +10,7 @@ CREATE TABLE tCarrito (
     Precio varchar(100),
     Descripcion varchar(250) NOT NULL,
     Imagen varchar(2000),
-    Cantidad varchar(200),
+    Cantidad int default 1,
 );
 
 CREATE TABLE tPersona (
