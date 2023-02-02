@@ -35,7 +35,7 @@ create table tClases(
     Id integer primary key auto_increment,
     Nombre varchar(40) not null,
     Horarios varchar(50),
-    Imagen varchar(300)
+    Imagen varchar(2000)
 );
 
 
