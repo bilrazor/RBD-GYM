@@ -34,6 +34,7 @@ create table tPedidos(
 create table tClases(
     Id integer primary key auto_increment,
     Nombre varchar(40) not null,
+    Fecha date,
     Horarios varchar(50),
     Imagen varchar(2000)
 );
@@ -71,12 +72,12 @@ insert into tPedidos(Fecha, Cantidad) VALUES ("2022-12-20", "1");
 insert into tPedidos(Fecha, Cantidad) VALUES ("2022-12-09", "3");
 
 
-insert into tClases(Nombre, Horarios, Imagen) VALUES ("Yoga", "8:30", "https://img.freepik.com/fotos-premium/mujer-haciendo-pose-yoga-foto-blanco-negro_148632-257.jpg");
-insert into tClases(Nombre, Horarios, Imagen) VALUES ("Spinning", "12:30", "https://www.fightfitness.cl/wp-content/uploads/2021/06/spinning-01-1.jpg");
-insert into tClases(Nombre, Horarios, Imagen) VALUES ("Crossfit", "14:00", "https://img.freepik.com/foto-gratis/pesos-ejercicio-pesas-fuerte-atletica_1139-709.jpg");
-insert into tClases(Nombre, Horarios, Imagen) VALUES ("Boxeo", "17:00", "https://fondosmil.com/fondo/28861.jpg");
-insert into tClases(Nombre, Horarios, Imagen) VALUES ("Pilates", "19:00", "https://p4.wallpaperbetter.com/wallpaper/703/841/205/black-and-white-workout-class-pilates-wallpaper-preview.jpg");
-insert into tClases(Nombre, Horarios, Imagen) VALUES ("Zumba", "21:00", "http://www.cursosyclasesd.com/web/contenido/curso_galeria_92faec3a7.jpg");
+insert into tClases(Nombre, Horarios, Fecha, Imagen) VALUES ("Yoga", "8:30", "2022-11-30", "https://img.freepik.com/fotos-premium/mujer-haciendo-pose-yoga-foto-blanco-negro_148632-257.jpg");
+insert into tClases(Nombre, Horarios, Fecha, Imagen) VALUES ("Spinning", "12:30", "2023-01-11", "https://www.fightfitness.cl/wp-content/uploads/2021/06/spinning-01-1.jpg");
+insert into tClases(Nombre, Horarios, Fecha, Imagen) VALUES ("Crossfit", "14:00", "2023-01-05", "https://img.freepik.com/foto-gratis/pesos-ejercicio-pesas-fuerte-atletica_1139-709.jpg");
+insert into tClases(Nombre, Horarios, Fecha, Imagen) VALUES ("Boxeo", "17:00", "2022-12-20", "https://fondosmil.com/fondo/28861.jpg");
+insert into tClases(Nombre, Horarios, Fecha, Imagen) VALUES ("Pilates", "19:00", "2022-12-09", "https://p4.wallpaperbetter.com/wallpaper/703/841/205/black-and-white-workout-class-pilates-wallpaper-preview.jpg");
+insert into tClases(Nombre, Horarios, Fecha, Imagen) VALUES ("Zumba", "21:00", "2022-11-09", "http://www.cursosyclasesd.com/web/contenido/curso_galeria_92faec3a7.jpg");
 
 
 
