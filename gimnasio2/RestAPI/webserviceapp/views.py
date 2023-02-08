@@ -67,6 +67,7 @@ def postCheckout(request):
     if not session_token or session_token != user.session_token:
             return JsonResponse({"error": "Token de sesión inválido"}, status=401)
         
+	persona = Tpersona.objects.get(session_token =session_token)
 	jsonpeticion = json.loads(request.body)
 	lista = Tcarrito.objects.all()
 	pedidos = Tpedidos()
@@ -74,6 +75,7 @@ def postCheckout(request):
 		pedidos.productosid = fila_sql.productosid
 		pedidos.fecha = datetime.now()
 		pedidos.cantidad = fila_sql.cantidad
+		pedidos.idpersona = persona.idpersona
 		pedidos.save()
 	Tcarrito.objects.all().delete()
 
