@@ -71,7 +71,7 @@ def postCheckout(request):
 	lista = Tcarrito.objects.all()
 	pedidos = Tpedidos()
 	for fila_sql in lista:
-		pedidos.id = fila_sql.productosid
+		pedidos.productosid = fila_sql.productosid
 		pedidos.fecha = datetime.now()
 		pedidos.cantidad = fila_sql.cantidad
 		pedidos.save()
@@ -103,6 +103,8 @@ def Cart(request):
         #Verifica si el valor del encabezado "sessionToken" es válido comparándolo con el session_token almacenado en la tabla Tpersona.
         if not session_token or session_token != user.session_token:
             return JsonResponse({"error": "Token de sesión inválido"}, status=401)
+
+	persona = Tpersona.objects.get(sessiontoken = session_token)
 	if request.method == 'POST':
 		data = json.loads(request.body)
 		lista = Tproductos.objects.get(productosid = data['ProductosId'])
@@ -114,6 +116,7 @@ def Cart(request):
 		carrito.descripcion = lista.descripcion
 		carrito.imagen = lista.imagen
 		carrito.cantidad = 1
+		carrito.idpersona = persona.idpersona
 		carrito.save()
 		return JsonResponse({"200":"Ok"},safe=False)
 
@@ -129,9 +132,9 @@ def Cart(request):
 			diccionario['Descripcion'] = fila_sql.descripcion
 			diccionario['Imagen'] = fila_sql.imagen
 			diccionario['Cantidad'] = fila_sql.cantidad
+			diccionario['IdPersona'] = persona.idpersona
 			respuesta_final.append(diccionario)
 		return JsonResponse(respuesta_final, safe=False)
-
 
 @csrf_exempt
 def destroyCart(request, id_carrito):
