@@ -102,9 +102,14 @@ def Cart(request):
 	#Verifica si el valor del encabezado "sessionToken" es válido comparándolo con el session_token almacenado en la tabla Tpersona
 	if not session_token or session_token != user.session_token:
 		return JsonResponse({"error": "Token de sesión inválido"}, status=401)
+	
+	
+	token = request.headers.get('sessionToken')
+	user = Tpersona.objects.get(idpersona = token)
 	if request.method == 'POST':
 		data = json.loads(request.body)
 		lista = Tproductos.objects.get(productosid = data['ProductosId'])
+		persona = Tpersona.objects.get(idpersona = token)
 		carrito = Tcarrito()
 		carrito.productosid =lista.productosid
 		carrito.nombre = lista.nombre
@@ -113,7 +118,7 @@ def Cart(request):
 		carrito.descripcion = lista.descripcion
 		carrito.imagen = lista.imagen
 		carrito.cantidad = 1
-		carrito.idpersona = persona.idpersona
+		carrito.idpersona = persona
 		carrito.save()
 		return JsonResponse({"200":"Ok"},safe=False)
 
@@ -129,7 +134,7 @@ def Cart(request):
 			diccionario['Descripcion'] = fila_sql.descripcion
 			diccionario['Imagen'] = fila_sql.imagen
 			diccionario['Cantidad'] = fila_sql.cantidad
-			diccionario['IdPersona'] = persona.idpersona
+			diccionario['IdPersona'] = user.idpersona
 			respuesta_final.append(diccionario)
 		return JsonResponse(respuesta_final, safe=False)
 
