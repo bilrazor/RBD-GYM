@@ -66,7 +66,7 @@ def postCheckout(request):
 	lista = Tcarrito.objects.all()
 	pedidos = Tpedidos()
 	for fila_sql in lista:
-		pedidos.id = fila_sql.productosid
+		pedidos.productoid = fila_sql.productosid
 		pedidos.fecha = datetime.now()
 		pedidos.cantidad = fila_sql.cantidad
 		pedidos.save()
