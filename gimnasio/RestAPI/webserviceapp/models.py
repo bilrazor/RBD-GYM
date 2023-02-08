@@ -15,7 +15,8 @@ class Tcarrito(models.Model):
     precio = models.CharField(db_column='Precio', max_length=100, blank=True, null=True)  # Field name made lowercase.
     descripcion = models.CharField(db_column='Descripcion', max_length=250)  # Field name made lowercase.
     imagen = models.CharField(db_column='Imagen', max_length=2000, blank=True, null=True)  # Field name made lowercase.
-    cantidad = models.IntegerField(db_column='Cantidad')  # Field name made lowercase.
+    cantidad = models.IntegerField(db_column='Cantidad', blank=True, null=True)  # Field name made lowercase.
+    idpersona = models.ForeignKey('Tpersona', models.DO_NOTHING, db_column='IdPersona')  # Field name made lowercase.
 
     class Meta:
         managed = False

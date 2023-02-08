@@ -94,6 +94,8 @@ def Cart(request):
 #		payload = jwt.decode(SessionToken,secret,algorithms=['HS256'])
 #	except jwt.exceptions.InvalidTokenError:
 #			return HttpResponse(status=401)
+	session_token = request.headers.get('SessionToken')
+	persona = Tpersona.objects.get(sessiontoken = session_token)
 	if request.method == 'POST':
 		data = json.loads(request.body)
 		lista = Tproductos.objects.get(productosid = data['ProductosId'])
@@ -105,6 +107,7 @@ def Cart(request):
 		carrito.descripcion = lista.descripcion
 		carrito.imagen = lista.imagen
 		carrito.cantidad = 1
+		carrito.idpersona = persona.idpersona
 		carrito.save()
 		return JsonResponse({"200":"Ok"},safe=False)
 
@@ -120,6 +123,7 @@ def Cart(request):
 			diccionario['Descripcion'] = fila_sql.descripcion
 			diccionario['Imagen'] = fila_sql.imagen
 			diccionario['Cantidad'] = fila_sql.cantidad
+			diccionario['IdPersona'] = persona.idpersona
 			respuesta_final.append(diccionario)
 		return JsonResponse(respuesta_final, safe=False)
 
