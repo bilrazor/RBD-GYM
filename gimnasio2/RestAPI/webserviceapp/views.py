@@ -57,6 +57,7 @@ def getProducto(request, id_solicitado):
 
 @csrf_exempt
 def postCheckout(request):
+
 	#Luego, obtiene el valor del encabezado "sessionToken" de la solicitud.
 	session_token = request.headers.get('sessionToken')
 	print(session_token)
@@ -69,9 +70,10 @@ def postCheckout(request):
 	lista = Tcarrito.objects.all()
 	pedidos = Tpedidos()
 	for fila_sql in lista:
-		pedidos.id = fila_sql.productosid
+		pedidos.productosid = fila_sql.productosid
 		pedidos.fecha = datetime.now()
 		pedidos.cantidad = fila_sql.cantidad
+		pedidos.idpersona = persona.idpersona
 		pedidos.save()
 	Tcarrito.objects.all().delete()
 
@@ -111,6 +113,7 @@ def Cart(request):
 		carrito.descripcion = lista.descripcion
 		carrito.imagen = lista.imagen
 		carrito.cantidad = 1
+		carrito.idpersona = persona.idpersona
 		carrito.save()
 		return JsonResponse({"200":"Ok"},safe=False)
 
@@ -126,9 +129,9 @@ def Cart(request):
 			diccionario['Descripcion'] = fila_sql.descripcion
 			diccionario['Imagen'] = fila_sql.imagen
 			diccionario['Cantidad'] = fila_sql.cantidad
+			diccionario['IdPersona'] = persona.idpersona
 			respuesta_final.append(diccionario)
 		return JsonResponse(respuesta_final, safe=False)
-
 
 @csrf_exempt
 def destroyCart(request, id_carrito):
