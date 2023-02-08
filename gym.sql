@@ -11,6 +11,8 @@ create table tCarrito (
     Descripcion varchar(250) NOT NULL,
     Imagen varchar(2000),
     Cantidad int default 1;
+    IdPersona integer NOT NULL,
+    FOREIGN KEY (IdPersona) REFERENCES tPersona(IdPersona)
 );
 
 CREATE TABLE tPersona (
