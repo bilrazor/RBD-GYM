@@ -1,3 +1,4 @@
+
 """RestAPI URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from webserviceapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('comprarplan', views.ComprarPlan),
+    path('categories', views.getCategorias),
+    path('products/<int:id_solicitado>', views.getProducto),
+    path('cart',views.Cart),
+    path('cart/<int:id_carrito>', views.destroyCart),
+    path('categories/<int:id_categoria>/products[', views.SearchCategories),
+    path('categories/<int:id_categoria>', views.getProductosCategorias),
+    path('checkout', views.postCheckout)
 ]
