@@ -56,13 +56,13 @@ def getProducto(request, id_solicitado):
 	return JsonResponse(respuesta_final, safe=False)
 
 @csrf_exempt
-def postCheckout(request):
+def postCheckout(request, idpersona):
 
 	#Luego, obtiene el valor del encabezado "sessionToken" de la solicitud.
-	token = request.headers.get('sessionToken')
+	token = request.headers.get('SessionToken')
 	print(session_token)
 	#Busca un objeto de la tabla Tpersona con el idpersona proporcionado en la URL.
-	user = Tpersona.objects.get(session_token=token)
+	user = Tpersona.objects.filter(idpersona=idpersona)
 	#Verifica si el valor del encabezado "sessionToken" es válido comparándolo con el session_token almacenado en la tabla Tpersona.
 	if not token or token != user.session_token:
 		 return JsonResponse({"error": "Token de sesión inválido"}, status=401)
@@ -73,18 +73,18 @@ def postCheckout(request):
 		pedidos.productosid = fila_sql.productosid
 		pedidos.fecha = datetime.now()
 		pedidos.cantidad = fila_sql.cantidad
-		pedidos.idpersona = persona.idpersona
+		pedidos.idpersona = idpersona
 		pedidos.save()
 	Tcarrito.objects.all().delete()
 
 	return JsonResponse({"200":"OK"}, safe=False)
 
-def ComprarPlan(request):
+def ComprarPlan(request, idpersona):
 	#Luego, obtiene el valor del encabezado "sessionToken" de la solicitud.
-	token = request.headers.get('sessionToken')
+	token = request.headers.get('SessionToken')
 	print(session_token)
 	#Busca un objeto de la tabla Tpersona con el idpersona proporcionado en la URL.
-	user = Tpersona.objects.get(session_token=token)
+	user = Tpersona.objects.get(idpersona = idpersona)
 	#Verifica si el valor del encabezado "sessionToken" es válido comparándolo con el session_token almacenado en la tabla Tpersona.
 	if not token or token != user.session_token:
 		return JsonResponse({"error": "Token de sesión inválido"}, status=401)
@@ -94,18 +94,18 @@ def ComprarPlan(request):
 		return HttpResponse(status="401")
 
 @csrf_exempt
-def Cart(request):
+def Cart(request, idpersona):
 	#Luego, obtiene el valor del encabezado "sessionToken" de la solicitud.
-	token = request.headers.get('sessionToken')
+	token = request.headers.get('SessionToken')
 	#Busca un objeto de la tabla Tpersona con el idpersona proporcionado en la URL.
-	user = Tpersona.objects.get(session_token = token)
+	user = Tpersona.objects.get(idpersona = idpersona)
 	#Verifica si el valor del encabezado "sessionToken" es válido comparándolo con el session_token almacenado en la tabla Tpersona
 	if not token or token != user.session_token:
 		return JsonResponse({"error": "Token de sesión inválido"}, status=401)
+
 	if request.method == 'POST':
 		data = json.loads(request.body)
 		lista = Tproductos.objects.get(productosid = data['ProductosId'])
-		persona = Tpersona.objects.get(idpersona = token)
 		carrito = Tcarrito()
 		carrito.productosid =lista.productosid
 		carrito.nombre = lista.nombre
@@ -114,7 +114,7 @@ def Cart(request):
 		carrito.descripcion = lista.descripcion
 		carrito.imagen = lista.imagen
 		carrito.cantidad = 1
-		carrito.idpersona = persona
+		carrito.idpersona = idpersona
 		carrito.save()
 		return JsonResponse({"200":"Ok"},safe=False)
 
@@ -130,17 +130,17 @@ def Cart(request):
 			diccionario['Descripcion'] = fila_sql.descripcion
 			diccionario['Imagen'] = fila_sql.imagen
 			diccionario['Cantidad'] = fila_sql.cantidad
-			diccionario['IdPersona'] = user.idpersona
+			diccionario['IdPersona'] = idpersona
 			respuesta_final.append(diccionario)
 		return JsonResponse(respuesta_final, safe=False)
 
 @csrf_exempt
-def destroyCart(request, id_carrito):
+def destroyCart(request, id_carrito, idpersona):
 	#Luego, obtiene el valor del encabezado "sessionToken" de la solicitud.
-	token = request.headers.get('sessionToken')
+	token = request.headers.get('SessionToken')
 	print(session_token)
 	#Busca un objeto de la tabla Tpersona con el idpersona proporcionado en la URL.
-	user = Tpersona.objects.get(session_token=token)
+	user = Tpersona.objects.get(idpersona=idpersona)
 	#Verifica si el valor del encabezado "sessionToken" es válido comparándolo con el session_token almacenado en la tabla Tpersona.
 	if not token or token != user.session_token:
 		return JsonResponse({"error": "Token de sesión inválido"}, status=401)

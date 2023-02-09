@@ -17,7 +17,7 @@ class Tcarrito(models.Model):
     descripcion = models.CharField(db_column='Descripcion', max_length=250)  # Field name made lowercase.
     imagen = models.CharField(db_column='Imagen', max_length=2000, blank=True, null=True)  # Field name made lowercase.
     cantidad = models.IntegerField(db_column='Cantidad', blank=True, null=True)  # Field name made lowercase.
-    idpersona = models.ForeignKey('Tpersona', models.DO_NOTHING, db_column='IdPersona')  # Field name made lowercase.
+    idpersona = models.IntegerField(db_column='IdPersona')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -37,7 +37,9 @@ class Tcategorias(models.Model):
 class Tclases(models.Model):
     id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
     nombre = models.CharField(db_column='Nombre', max_length=40)  # Field name made lowercase.
+    fecha = models.DateField(db_column='Fecha', blank=True, null=True)  # Field name made lowercase.
     horarios = models.CharField(db_column='Horarios', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    imagen = models.CharField(db_column='Imagen', max_length=2000, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -59,7 +61,7 @@ class Tpersona(models.Model):
     dni = models.CharField(max_length=50, blank=True, null=True)
     nombre = models.CharField(max_length=500, blank=True, null=True)
     correo = models.CharField(max_length=200, blank=True, null=True)
-    password = models.CharField(max_length=20, blank=True, null=True)
+    password = models.CharField(max_length=2000, blank=True, null=True)
     pago = models.IntegerField(db_column='Pago', blank=True, null=True)  # Field name made lowercase.
     direccion = models.CharField(max_length=2000, blank=True, null=True)
     telefono = models.IntegerField(blank=True, null=True)
