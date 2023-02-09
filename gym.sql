@@ -20,7 +20,7 @@ CREATE TABLE tPersona (
 	dni varchar(50),
 	nombre VARCHAR(500),
 	correo VARCHAR(200),
-    password varchar(20),
+    password varchar(2000),
 	Pago Integer,
 	direccion varchar(2000),
 	telefono Integer,
