@@ -33,6 +33,10 @@ urlpatterns = [
     path('sessions',views.sessions),
     path('profile/<int:idpersona>',views.profile ),
     path('datos/<int:idpersona>',views.datos ),
+    path('classes', views.obtener_listado_clases),
+    path('orders', views.obtener_listado_pedidos),
+    path('calendar/<int:id_clase>', views.get_clases),
+    path('calendar/<int:id_clase>/classes', views.reserva_clases)
     
    
 ]
