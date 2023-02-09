@@ -6,7 +6,6 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
 from django.contrib.auth.hashers import make_password
 
 class Tcarrito(models.Model):
@@ -17,11 +16,11 @@ class Tcarrito(models.Model):
     descripcion = models.CharField(db_column='Descripcion', max_length=250)  # Field name made lowercase.
     imagen = models.CharField(db_column='Imagen', max_length=2000, blank=True, null=True)  # Field name made lowercase.
     cantidad = models.IntegerField(db_column='Cantidad', blank=True, null=True)  # Field name made lowercase.
-    idpersona = models.IntegerField(db_column='IdPersona')  # Field name made lowercase.
+    idpersona = models.ForeignKey('Tpersona', models.DO_NOTHING, db_column='Idpersona')  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'tCarrito'
+        db_table = 'tcarrito'
 
 
 class Tcategorias(models.Model):
@@ -31,7 +30,7 @@ class Tcategorias(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tCategorias'
+        db_table = 'tcategorias'
 
 
 class Tclases(models.Model):
@@ -43,17 +42,18 @@ class Tclases(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tClases'
+        db_table = 'tclases'
 
 
 class Tpedidos(models.Model):
     id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
     fecha = models.DateField(db_column='Fecha', blank=True, null=True)  # Field name made lowercase.
     cantidad = models.IntegerField(db_column='Cantidad')  # Field name made lowercase.
+    idpersona = models.ForeignKey('Tpersona', models.DO_NOTHING, db_column='Idpersona')  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'tPedidos'
+        db_table = 'tpedidos'
 
 
 class Tpersona(models.Model):
@@ -70,7 +70,7 @@ class Tpersona(models.Model):
         self.password = make_password(raw_password)
     class Meta:
         managed = False
-        db_table = 'tPersona'
+        db_table = 'tpersona'
 
 
 class Tproductos(models.Model):
@@ -84,4 +84,4 @@ class Tproductos(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tProductos'
+        db_table = 'tproductos'

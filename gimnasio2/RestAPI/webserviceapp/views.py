@@ -333,7 +333,7 @@ def datos(request, idpersona):
         # Devuelve una respuesta vacía para indicar que la operación se realizó con éxito
         return JsonResponse({'mensaje': 'Perfil actualizado exitosamente'}, status=200)
 
- def obtener_listado_clases(request):
+def obtener_listado_clases(request):
       lista = Tclases.objects.all()
       respuesta_final = []
       for fila_sql in lista:
@@ -391,7 +391,7 @@ def get_clases(request, id_clase):
         }
     return JsonResponse(respuesta_final, safe=False)
 
-def reserva_clases(request)
+def reserva_clases(request):
         if not persisted_token:
             return JsonResponse({'error': 'SessionToken not found'}, status=401)
             clase = Tclases.objects.get(id=id_clase)
