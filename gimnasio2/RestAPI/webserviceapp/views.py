@@ -255,15 +255,14 @@ def sessions(request):
         if check_password(password, user.password):
             #Genera un token de sesión único y una fecha de expiración para ese token.
             session_token = uuid.uuid4()
-            expires_at = datetime.datetime.now() + datetime.timedelta(minutes=1)            
-            Tpersona.objects.filter(idpersona=user.idpersona).update(session_token=str(session_token), expires_at=expires_at)
+                 
+            Tpersona.objects.filter(idpersona=user.idpersona).update(session_token=str(session_token))
             #Verifica si la fecha actual es mayor que la fecha de expiración. Si es así, devuelve una 
             # respuesta JSON con un error indicando que el token ha caducado.
-            if datetime.datetime.now()  > expires_at:
-                return JsonResponse({'error': 'Token ha caducado, inicia sesión de nuevo'}, status=401)        
+            
             #Devuelve una respuesta JSON con los datos del usuario, incluyendo el ID de la 
             # persona, el token de sesión y la fecha de expiración.
-            data = {'idpersona': user.idpersona, 'sessionToken': str(session_token), 'expiresAt': expires_at.isoformat()}
+            data = {'idpersona': user.idpersona, 'sessionToken': str(session_token)}
           
         else:
             return JsonResponse({'error': 'Contraseña incorrecta'}, status=401)

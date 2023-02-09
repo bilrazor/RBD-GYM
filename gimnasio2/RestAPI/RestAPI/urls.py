@@ -21,7 +21,7 @@ from webserviceapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('comprarplan', views.ComprarPlan),
+    path('comprarplan/<int:idpersona>', views.ComprarPlan),
     path('categories', views.getCategorias),
     path('products/<int:id_solicitado>', views.getProducto),
     path('cart',views.Cart),
